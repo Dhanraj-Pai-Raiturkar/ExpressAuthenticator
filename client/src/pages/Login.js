@@ -1,9 +1,10 @@
 import { useState } from "react";
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-
+    const navigate = useNavigate();
     const handleSubmit = async (e) => {
         e.preventDefault();
         try {
@@ -18,8 +19,8 @@ const Login = () => {
                 })
             });
             const data = await response.json();
-            alert(`Login Successful ${data.user.name}`);
-            console.log("response", data);
+            sessionStorage.setItem('jwt', JSON.stringify(data.token))
+            navigate("/dashboard");
         } catch (error) {
             console.log("error", error);
             alert("Invalid User");
