@@ -6,6 +6,7 @@ const authenticate = require('../middleware/authenticate');
 router.get("/", authenticate, async (req,res) => {
     try{
         console.log(req.query);
+        console.log("req.accessToken",req.accessToken);
         const user = await User.find();
         res.status(200).json({status: true, user});
     }catch(error){
